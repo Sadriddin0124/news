@@ -1,0 +1,16 @@
+export const languages = [
+    {id: 1, value: "en", title: "English"},
+    {id: 2, value: "ru", title: "Russian"},
+    {id: 3, value: "es", title: "Spanish"},
+    {id: 4, value: "jp", title: "Japanese"},
+    {id: 5, value: "de", title: "German"},
+    {id: 6, value: "fr", title: "French"},
+    {id: 7, value: "it", title: "Italian"},
+    {id: 8, value: "ar", title: "Arabic"},
+    {id: 9, value: "ko", title: "Korean"},
+    {id: 10, value: "pt", title: "Portuguese"},
+    {id: 11, value: "zh", title: "Chinese"},
+    {id: 12, value: "sv", title: "Swedish"},
+    {id: 13, value: "no", title: "Norwegian"},
+    {id: 14, value: "nl", title: "Dutch"},
+]

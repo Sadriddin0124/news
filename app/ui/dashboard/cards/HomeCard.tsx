@@ -16,7 +16,7 @@ export default function HomeCard({ item }: { item: IHome }) {
           alt="green iguana"
           height="140"
           image={item?.urlToImage ? item?.urlToImage : "/no_image.jpg"}
-          className="md:h-[200px]"
+          className="md:h-[250px]"
         />
       <CardContent>
         <Typography gutterBottom variant="h6" component="div" className="md:max-h-[95px] overflow-hidden">

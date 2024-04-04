@@ -1,10 +1,9 @@
 "use client";
+import { getNewsSearch } from "@/app/api-service/search.service";
+import { IHome } from "@/app/types/home.types";
+import HomeCard from "@/app/ui/dashboard/cards/HomeCard";
+import Navbar from "@/app/ui/navbar/navbar";
 import React, { useEffect, useState } from "react";
-import { getNews } from "../api-service/home.service";
-import { IHome } from "../types/home.types";
-import HomeCard from "../ui/dashboard/cards/HomeCard";
-import Navbar from "../ui/navbar/navbar";
-
 const Home = () => {
     const [news, setNews] = useState<IHome[]>([]);
   useEffect(() => {
@@ -12,7 +11,7 @@ const Home = () => {
     getNewsValue(id);
   }, []);
   const getNewsValue = async (id: string | null) => {
-    const response = await getNews(id);
+    const response = await getNewsSearch(id, "");
     console.log(response);
     setNews(response?.data?.articles);
   };
@@ -20,7 +19,7 @@ const Home = () => {
   return (
     <div>
       <div className="h-[64px]">
-        <Navbar/>
+        <Navbar />
       </div>
       <div className="flex flex-wrap w-[100%] justify-between p-[10px] gap-[20px]">
         {news?.map((item, index) => {
