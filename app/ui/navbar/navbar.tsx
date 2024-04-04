@@ -36,6 +36,7 @@ import Norway from "@/public/flags/norway.webp"
 import Portugal from "@/public/flags/portugaly.png"
 import Swedish from "@/public/flags/swedish.svg"
 import { getNewsSearch } from "@/app/api-service/search.service";
+import { usePathname, useRouter } from "next/navigation";
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
   borderRadius: theme.shape.borderRadius,
@@ -171,6 +172,7 @@ export default function Navbar() {
     </Menu>
   );
   const [defaultLang, setDefaultLang] = React.useState<string | undefined>("")
+  const [searchValue, setSearchValue] = React.useState<string | null>("")
   React.useEffect(()=> {
     let id = sessionStorage.getItem("lang_id")
     if (id) {
@@ -178,6 +180,8 @@ export default function Navbar() {
     }else {
       setDefaultLang("en")
     }
+    let search = sessionStorage.getItem("search")
+    setSearchValue(search)
   },[])
   const [flags, setFlags] = React.useState([
     {value: "en", img: English},
@@ -195,7 +199,6 @@ export default function Navbar() {
     {value: "pt", img: Portugal},
     {value: "sv", img: Swedish},
   ])
-  console.log(defaultLang);
   const changeLanguage = (e: React.ChangeEvent<HTMLSelectElement>) => {
     let value = e.target.value
     getNews(value)
@@ -203,10 +206,17 @@ export default function Navbar() {
     sessionStorage.setItem("lang_id", value)
     window.location.reload()
   } 
+  const router = useRouter()
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     let value = e.target.value
     getNewsSearch(defaultLang, value)
+    sessionStorage.setItem("search", value)
+    router.push("/dashboard/search")
   }
+  const handleSubmit = () => {
+
+  }
+  const pathname = usePathname()
   return (
     <Box sx={{ flexGrow: 1, position: "fixed", width: "100%" }}>
       <AppBar position="static">
@@ -232,11 +242,14 @@ export default function Navbar() {
             <SearchIconWrapper>
               <SearchIcon />
             </SearchIconWrapper>
+            <form onSubmit={handleSubmit}>
             <StyledInputBase
               placeholder="Search…"
               inputProps={{ "aria-label": "search" }}
               onChange={handleSearch}
+              defaultValue={pathname === "/dashboard" ? "" : searchValue}
             />
+            </form>
           </Search>
           <Box sx={{ flexGrow: 1 }} />
           <Box sx={{ display: { display: "flex" } }}>

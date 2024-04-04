@@ -8,14 +8,13 @@ const Home = () => {
     const [news, setNews] = useState<IHome[]>([]);
   useEffect(() => {
     let id = sessionStorage.getItem("lang_id")
-    getNewsValue(id);
+    let search = sessionStorage.getItem("search")
+    getNewsValue(id, search);
   }, []);
-  const getNewsValue = async (id: string | null) => {
-    const response = await getNewsSearch(id, "");
-    console.log(response);
+  const getNewsValue = async (id: string | null, search: string | null) => {
+    const response = await getNewsSearch(id, search);
     setNews(response?.data?.articles);
   };
-
   return (
     <div>
       <div className="h-[64px]">
